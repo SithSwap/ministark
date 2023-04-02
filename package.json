@@ -1,0 +1,50 @@
+{
+	"name": "ministark",
+	"version": "0.0.0",
+	"description": "",
+	"type": "module",
+	"license": "GPL-3.0-or-later",
+	"keywords": [
+		"starknet"
+	],
+	"scripts": {
+		"build": "vite build",
+		"test": "vitest",
+		"test:ui": "vitest --ui",
+		"test:bench": "vitest bench",
+		"test:coverage": "vitest run --coverage",
+		"format": "prettier --write --plugin-search-dir=. .",
+		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
+		"prepublishOnly": "npm test && npm run build"
+	},
+	"files": [
+		"dist"
+	],
+	"main": "./dist/ministark.umd.cjs",
+	"module": "./dist/ministark.js",
+	"exports": {
+		".": {
+			"import": "./dist/ministark.js",
+			"require": "./dist/ministark.umd.cjs"
+		}
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.57.0",
+		"@typescript-eslint/parser": "^5.57.0",
+		"@vitest/coverage-istanbul": "^0.29.8",
+		"@vitest/ui": "^0.29.8",
+		"eslint": "^8.37.0",
+		"eslint-config-prettier": "^8.8.0",
+		"prettier": "^2.8.7",
+		"starknet": "^4.22.0",
+		"tslib": "^2.5.0",
+		"typescript": "^5.0.3",
+		"vite": "^4.2.1",
+		"vite-plugin-dts": "^2.1.0",
+		"vitest": "^0.29.8"
+	},
+	"dependencies": {
+		"@noble/curves": "^0.9.1",
+		"@noble/hashes": "^1.3.0"
+	}
+}

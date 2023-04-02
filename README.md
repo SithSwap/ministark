@@ -1,1 +1,1 @@
-# starknet.ts
+# MiniStark
