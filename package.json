@@ -1,11 +1,18 @@
 {
 	"name": "ministark",
 	"version": "0.0.0",
-	"description": "",
+	"description": "Minimal library for interacting with the Starknet ecosystem",
 	"type": "module",
-	"license": "GPL-3.0-or-later",
+	"license": "MIT",
+	"author": "SithSwap (https://sithswap.com)",
+	"repository": "github:sithswap/ministark",
 	"keywords": [
-		"starknet"
+		"starknet",
+		"cairo",
+		"starkware",
+		"rollup",
+		"zk",
+		"l2"
 	],
 	"scripts": {
 		"build": "vite build",
