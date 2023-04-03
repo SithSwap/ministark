@@ -1,6 +1,6 @@
 {
 	"name": "ministark",
-	"version": "0.0.0",
+	"version": "0.0.1-beta.0",
 	"description": "Minimal library for interacting with the Starknet ecosystem",
 	"type": "module",
 	"license": "MIT",
