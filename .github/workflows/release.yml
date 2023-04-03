@@ -17,7 +17,7 @@ jobs:
                   node-version: '18'
                   cache: 'npm'
             - run: npm install
-            - run: npm build
+            - run: npm run build
             - id: publish
               name: Release to NPM
               if: github.ref == 'refs/heads/master'
