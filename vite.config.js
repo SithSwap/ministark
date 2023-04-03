@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import { fileURLToPath } from 'url';
 
-console.log(fileURLToPath(new URL('tests/*', import.meta.url)));
 export default defineConfig({
 	resolve: {
 		alias: {
