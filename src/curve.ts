@@ -5,7 +5,7 @@ import { weierstrass } from '@noble/curves/abstract/weierstrass';
 import { Field } from '@noble/curves/abstract/modular';
 
 import { concatBytes, randomBytes } from '@noble/hashes/utils';
-import * as Config from './config';
+import * as Config from './config.js';
 
 export const FieldPrime = Config.FieldPrime;
 
