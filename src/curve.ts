@@ -5,18 +5,18 @@ import { weierstrass } from '@noble/curves/abstract/weierstrass';
 import { Field } from '@noble/curves/abstract/modular';
 
 import { concatBytes, randomBytes } from '@noble/hashes/utils';
-import Config from './curve.json';
+import * as Config from './config';
 
-export const FieldPrime = BigInt(Config.FieldPrime);
+export const FieldPrime = Config.FieldPrime;
 
 export const Curve = weierstrass({
-	a: BigInt(Config.Alpha),
-	b: BigInt(Config.Beta),
+	a: Config.Alpha,
+	b: Config.Beta,
 	Fp: Field(FieldPrime),
-	n: BigInt(Config.ECOrder),
-	Gx: BigInt(Config.Points[1][0]),
-	Gy: BigInt(Config.Points[1][1]),
-	h: BigInt(1),
+	n: Config.ECOrder,
+	Gx: Config.Points[1][0],
+	Gy: Config.Points[1][1],
+	h: 1n,
 	lowS: false,
 	nBitLength: 252,
 	hash: sha256,
@@ -26,9 +26,7 @@ export const Curve = weierstrass({
 
 type ProjectivePoint = InstanceType<typeof Curve.ProjectivePoint>;
 
-export const Points = Config.Points.map(
-	([x, y]) => new Curve.ProjectivePoint(BigInt(x), BigInt(y), 1n)
-);
+export const Points = Config.Points.map(([x, y]) => new Curve.ProjectivePoint(x, y, 1n));
 
 function precompute(x: ProjectivePoint, y: ProjectivePoint) {
 	const points = [];
