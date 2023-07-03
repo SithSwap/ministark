@@ -1,4 +1,4 @@
-import { toLUT } from './string';
+import { toLUT } from './string.js';
 
 describe.concurrent('toLUT', () => {
 	test.each([

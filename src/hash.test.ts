@@ -1,13 +1,9 @@
-import { TOKENS } from '$tests/utilities/starknet';
-import { contract, hash, selectorFor, pedersen } from './hash';
-import { hash as starknetHash } from 'starknet';
+import { hash as starknetHash, ec } from 'starknet';
+import { TOKENS } from '$tests/utilities/starknet.js';
+import { contract, hash, selectorFor, pedersen } from './hash.js';
 
-const {
-	calculateContractAddressFromHash,
-	computeHashOnElements,
-	getSelectorFromName,
-	pedersen: originalPedersen
-} = starknetHash;
+const { calculateContractAddressFromHash, computeHashOnElements, getSelectorFromName } =
+	starknetHash;
 
 describe('compare', () => {
 	it.each([
@@ -16,7 +12,7 @@ describe('compare', () => {
 		['0x12773', '0x872362'],
 		['0x79dc0da7c54b95f10aa182ad0a46400db63156920adb65eca2654c0945a463', '034234324']
 	])('pedersen works for [%s. %s]', async (a, b) => {
-		const excepted = BigInt(originalPedersen([a, b]));
+		const excepted = BigInt(ec.starkCurve.pedersen(BigInt(a), BigInt(b)));
 		expect(pedersen(a, b)).toEqual(excepted);
 	});
 });
@@ -28,7 +24,7 @@ describe.concurrent('hashing', () => {
 		['0x12773', '0x872362'],
 		['0x79dc0da7c54b95f10aa182ad0a46400db63156920adb65eca2654c0945a463', '034234324']
 	])('pedersen works for [%s. %s]', async (a, b) => {
-		expect(pedersen(a, b)).toEqual(BigInt(originalPedersen([a, b])));
+		expect(pedersen(a, b)).toEqual(BigInt(ec.starkCurve.pedersen(BigInt(a), BigInt(b))));
 	});
 
 	test.each([

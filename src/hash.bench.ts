@@ -1,6 +1,6 @@
-import { pedersen } from './hash';
-import { hash } from 'starknet';
 import { bench } from 'vitest';
+import { ec } from 'starknet';
+import { pedersen } from './hash.js';
 
 describe('pedersen', () => {
 	const input = [
@@ -13,7 +13,7 @@ describe('pedersen', () => {
 	bench('starknet.js', () => {
 		for (let i = 0; i < input.length; i++) {
 			const [a, b] = input[i];
-			hash.pedersen([a, b]);
+			ec.starkCurve.pedersen(a, b);
 		}
 	});
 

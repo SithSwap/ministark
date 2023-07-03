@@ -1,4 +1,4 @@
-import { fromShortString, toShortString } from './codec';
+import { fromShortString, toShortString } from './codec.js';
 
 describe.concurrent('short string', () => {
 	it.each([

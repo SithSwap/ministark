@@ -1,6 +1,6 @@
-import { advance } from '$tests/utilities/time';
-import { Provider } from 'starknet';
-import { wait, Rejected, Timeout } from './transaction';
+import { Provider, constants } from 'starknet';
+import { advance } from '$tests/utilities/time.js';
+import { wait, Rejected, Timeout } from './transaction.js';
 
 describe('transaction', () => {
 	beforeEach(() => {
@@ -12,9 +12,9 @@ describe('transaction', () => {
 
 	it('should wait for a transaction', async () => {
 		const runs = 3;
-		const provider = new Provider({ sequencer: { network: 'goerli-alpha' } });
+		const provider = new Provider({ sequencer: { network: constants.NetworkName.SN_GOERLI } });
 		const mock = vi.spyOn(provider, 'getTransactionReceipt').mockImplementation(async hash => ({
-			transaction_hash: hash,
+			transaction_hash: hash as HexString,
 			status: mock.mock.calls.length >= runs ? 'ACCEPTED_ON_L2' : 'NOT_RECEIVED'
 		}));
 		const promise = wait(provider, '0x1234');
@@ -27,9 +27,9 @@ describe('transaction', () => {
 
 	it('should reject a transaction', async () => {
 		const runs = 3;
-		const provider = new Provider({ sequencer: { network: 'goerli-alpha' } });
+		const provider = new Provider({ sequencer: { network: constants.NetworkName.SN_GOERLI } });
 		const mock = vi.spyOn(provider, 'getTransactionReceipt').mockImplementation(async hash => ({
-			transaction_hash: hash,
+			transaction_hash: hash as HexString,
 			status: mock.mock.calls.length >= runs ? 'REJECTED' : 'NOT_RECEIVED'
 		}));
 
@@ -46,9 +46,9 @@ describe('transaction', () => {
 
 	it('should timesout', async () => {
 		const runs = 5;
-		const provider = new Provider({ sequencer: { network: 'goerli-alpha' } });
+		const provider = new Provider({ sequencer: { network: constants.NetworkName.SN_GOERLI } });
 		const mock = vi.spyOn(provider, 'getTransactionReceipt').mockImplementation(async hash => ({
-			transaction_hash: hash,
+			transaction_hash: hash as HexString,
 			status: 'NOT_RECEIVED'
 		}));
 

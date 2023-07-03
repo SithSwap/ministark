@@ -1,9 +1,10 @@
 import type { Call as StarknetCall, Account, Provider } from 'starknet';
 
-import { toFelt } from './codec';
-import { selectorFor } from './hash';
+import { toFelt } from './codec.js';
+import { selectorFor } from './hash.js';
 
 export type BigNumberish = Not<BigIntish, boolean | bigint>; // placeholder type
+
 export type Block = BigNumberish | 'pending' | 'latest' | null;
 
 export type Call = {
@@ -94,10 +95,10 @@ export async function estimate(
 ) {
 	const fees = await account.estimateFee(remap(calls), options);
 	return {
-		max: BigInt(fees.suggestedMaxFee.toString('hex')),
-		overall: BigInt(fees.overall_fee.toString('hex')),
-		consumed: fees.gas_consumed && BigInt(fees.gas_consumed.toString('hex')),
-		price: fees.gas_price && BigInt(fees.gas_price.toString('hex'))
+		max: BigInt(fees.suggestedMaxFee.toString(16)),
+		overall: BigInt(fees.overall_fee.toString(16)),
+		consumed: fees.gas_consumed && BigInt(fees.gas_consumed.toString(16)),
+		price: fees.gas_price && BigInt(fees.gas_price.toString(16))
 	};
 }
 

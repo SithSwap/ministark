@@ -1,5 +1,5 @@
-import { withSeed } from '$tests/utilities/random';
-import { decode, encode } from './codec';
+import { withSeed } from '$tests/utilities/random.js';
+import { decode, encode } from './codec.js';
 
 function generate(length: number, seed: number) {
 	const characters = 'abcdefghijklmnopqrstuvwxyz0123456789-这来';

@@ -1,5 +1,6 @@
-import { ChainID, type Network } from './network';
-import { TimeoutController } from './utilities/promise';
+import type { Network } from './network.js';
+import { ChainID } from './network.js';
+import { TimeoutController } from './utilities/promise.js';
 
 export const enum Status {
 	Ok = 'ok',

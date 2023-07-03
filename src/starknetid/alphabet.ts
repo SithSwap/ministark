@@ -1,4 +1,4 @@
-import { toLUT } from '../utilities/string';
+import { toLUT } from '../utilities/string.js';
 
 type Alphabet<D extends Record<string, string>> = {
 	[K in keyof D]: {

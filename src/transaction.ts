@@ -1,5 +1,5 @@
 import type { Provider } from 'starknet';
-import { sleep } from './utilities/promise';
+import { sleep } from './utilities/promise.js';
 
 export const enum HashPrefix {
 	// toShortString('declare')
@@ -15,7 +15,7 @@ export const enum HashPrefix {
 	L1Handler = '0x6c315f68616e646c6572'
 }
 
-export enum Status {
+export const enum Status {
 	NotReceived = 'NOT_RECEIVED',
 	Received = 'RECEIVED',
 	Pending = 'PENDING',

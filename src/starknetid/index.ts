@@ -1,2 +1,2 @@
-export { default as Contacts } from './contract';
-export { decode, encode } from './codec';
+export { default as Contacts } from './contract.js';
+export { decode, encode } from './codec.js';

@@ -1,5 +1,5 @@
-import { isASCII } from './utilities/string';
-import { toBigInt, fromBigInt } from './utilities/buffer';
+import { isASCII } from './utilities/string.js';
+import { toBigInt, fromBigInt } from './utilities/buffer.js';
 
 const ShortSrtingMaxLength = 31;
 

@@ -1,4 +1,4 @@
-import { fromBigInt, toBigInt, fromHexString, toHexString } from './buffer';
+import { fromBigInt, toBigInt, fromHexString, toHexString } from './buffer.js';
 
 describe.concurrent('Buffer BigInt', () => {
 	it.each([

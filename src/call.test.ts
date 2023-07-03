@@ -1,11 +1,14 @@
-import { TOKENS, ACCOUNTS } from '$tests/utilities/starknet';
-
 import { transaction } from 'starknet';
-import { remap, toMulticallArrays, toExecuteCalldata, type Call } from './call';
+import { TOKENS, ACCOUNTS } from '$tests/utilities/starknet.js';
+import { remap, toMulticallArrays, toExecuteCalldata, type Call } from './call.js';
 
 const CALLS: Call[] = [
 	{ to: TOKENS['DAI'], method: 'balanceOf', data: [ACCOUNTS[0].address] },
-	{ to: TOKENS['DAI'], method: 'decimals' }
+	{ to: TOKENS['DAI'], method: 'balanceOf', data: [ACCOUNTS[0].address] },
+	{ to: TOKENS['DAI'], method: 'balanceOf', data: [ACCOUNTS[0].address] },
+	{ to: TOKENS['ETH'], method: 'decimals' },
+	{ to: TOKENS['DAI'], method: 'decimals' },
+	{ to: TOKENS['ETH'], method: 'balanceOf', data: [ACCOUNTS[0].address] }
 ];
 
 const REMAPPED = remap(CALLS);
@@ -15,7 +18,8 @@ describe.concurrent('Calls', () => {
 		const target = toMulticallArrays(CALLS);
 		const original = transaction.transformCallsToMulticallArrays(REMAPPED);
 		expect(target[0]).toStrictEqual(original.callArray);
-		expect(target[1]).toStrictEqual(original.calldata);
+		//TODO update multicall contract
+		expect(target[1]).toStrictEqual(original.calldata.splice(1));
 	});
 
 	it('transforms calls to execute calldata correctly', () => {

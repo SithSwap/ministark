@@ -1,24 +1,27 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
-		"useDefineForClassFields": true,
-		"module": "ESNext",
-		"lib": ["ESNext", "DOM"],
 		"types": ["vitest/globals"],
-		"moduleResolution": "bundler",
+		"target": "ES2022",
+		"lib": ["ES2022", "DOM"],
+		"module": "CommonJS",
+		"moduleResolution": "Node",
 		"strict": true,
+		"sourceMap": true,
+		"declaration": true,
+		"outDir": "./dist",
+		"baseUrl": ".",
+		"inlineSources": false,
 		"resolveJsonModule": true,
-		"isolatedModules": true,
 		"esModuleInterop": true,
-		"noEmit": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,
 		"skipLibCheck": true,
+		"preserveConstEnums": true,
 		"paths": {
 			"$src/*": ["./src/*"],
 			"$tests/*": ["./tests/*"]
 		}
 	},
-	"include": ["src", "tests"]
+	"include": ["src"]
 }

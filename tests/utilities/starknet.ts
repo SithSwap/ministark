@@ -1,4 +1,4 @@
-import { Provider } from 'starknet';
+import { Provider, constants } from 'starknet';
 import { ChainID, Networks } from '$src/network';
 import { call, multicall } from '$src/call';
 
@@ -9,7 +9,7 @@ const CONTRACTS = {
 	[ChainID.Goerli]: {
 		Multicall: '0x05754af3760f3356da99aea5c3ec39ccac7783d925a19666ebbeca58ff0087f4'
 	}
-} satisfies Partial<Record<ChainID, Record<string, HexString>>>;
+} as Partial<Record<ChainID, Record<string, HexString>>>;
 
 export const TOKENS = {
 	DAI: '0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396ec9' as HexString,
@@ -30,16 +30,20 @@ export const ACCOUNTS = [
 ];
 
 export function reader(chain: ChainID) {
+	const constracts = CONTRACTS[chain];
+
+	if (!constracts) throw new Error('Unsupported network');
+
 	const network = Networks[chain].name;
 
 	if (!network) throw new Error('Unsupported network');
 
-	const provider = new Provider({ sequencer: { network } });
+	const provider = new Provider({ sequencer: { network: constants.NetworkName[network] } });
 
 	return {
 		chain,
 		provider,
 		call: call.bind(null, provider),
-		multicall: multicall.bind(null, provider, CONTRACTS[chain].Multicall)
+		multicall: multicall.bind(null, provider, constracts.Multicall)
 	};
 }

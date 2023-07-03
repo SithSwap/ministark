@@ -1,7 +1,7 @@
 import { keccak_256 } from '@noble/hashes/sha3';
-import { toBigInt } from './utilities/buffer';
-import { toShortString } from './codec';
-import { Points, FieldPrime, Precomputed } from './curve';
+import { toBigInt } from './utilities/buffer.js';
+import { toShortString } from './codec.js';
+import { Points, FieldPrime, Precomputed } from './curve.js';
 
 const ENCODER = new TextEncoder();
 
@@ -15,8 +15,10 @@ const Mask250 = 2n ** 250n - 1n;
  * @param value - string you want to get the starknetKeccak hash from
  * @returns starknet keccak hash as bigint
  */
-export function keccak(value: string) {
-	return toBigInt(keccak_256(ENCODER.encode(value))) & Mask250;
+
+export function keccak(value: string | Uint8Array) {
+	if (typeof value === 'string') value = ENCODER.encode(value);
+	return toBigInt(keccak_256(value)) & Mask250;
 }
 
 /**

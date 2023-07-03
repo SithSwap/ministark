@@ -1,5 +1,5 @@
-import { trimEnd } from '../utilities/string';
-import { Delimiter, Alphabet, Star } from './alphabet';
+import { trimEnd } from '../utilities/string.js';
+import { Delimiter, Alphabet, Star } from './alphabet.js';
 
 function extract(input: string): [string, number] {
 	const output = trimEnd(input, Star);
