@@ -1,3 +1,3 @@
-export { default as voyager } from './voyager';
-export { default as starkscan } from './starkscan';
-export { explorer, type Explorer } from './base';
+export { default as voyager } from './voyager.js';
+export { default as starkscan } from './starkscan.js';
+export { explorer, type Explorer } from './base.js';

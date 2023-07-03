@@ -1,7 +1,7 @@
-import { Type } from '$src/address';
-import { ChainID } from '$src/network';
+import { Type } from '$src/address.js';
+import { ChainID } from '$src/network.js';
 
-import { explorer } from './base';
+import { explorer } from './base.js';
 
 export default explorer(
 	{

@@ -1,5 +1,5 @@
-import { Type } from '$src/address';
-import { ChainID } from '$src/network';
+import { Type } from '$src/address.js';
+import { ChainID } from '$src/network.js';
 
 type Bases = Partial<Record<ChainID, string>>;
 type Routes = Partial<Record<Type, string>>;
