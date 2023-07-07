@@ -1,33 +1,20 @@
-const enum Name {
-	Mainnet = 'SN_MAIN',
-	Goerli = 'SN_GOERLI',
-	Goerli2 = 'SN_GOERLI2'
-}
-
-export type Info = {
-	base: string;
-	label: string;
-	name: Enumerate<Name>;
-	chain: Enumerate<Network.ChainID>;
-};
-
-export const Networks: Record<Enumerate<Network.ChainID>, Info> = {
+export const Networks: Record<Enumerate<Network.ChainID>, Network.Info> = {
 	[Network.ChainID.Goerli]: {
-		name: Name.Mainnet,
+		name: Network.Name.Mainnet,
 		chain: Network.ChainID.Goerli,
 		label: 'Alpha Görli',
 		base: 'https://alpha4.starknet.io'
 	},
 
 	[Network.ChainID.Goerli2]: {
-		name: Name.Goerli2,
+		name: Network.Name.Goerli2,
 		chain: Network.ChainID.Goerli2,
 		label: 'Alpha Görli 2',
 		base: 'https://alpha4-2.starknet.io'
 	},
 
 	[Network.ChainID.Mainnet]: {
-		name: Name.Goerli,
+		name: Network.Name.Goerli,
 		chain: Network.ChainID.Mainnet,
 		label: 'Alpha Mainnet',
 		base: 'https://alpha-mainnet.starknet.io'

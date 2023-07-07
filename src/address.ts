@@ -31,12 +31,3 @@ export function checksum(address: BigIntish) {
 }
 
 export const ZeroAddress = validate('0x0');
-
-export const enum Type {
-	Block = 'block',
-	Class = 'class',
-	Event = 'event',
-	Token = 'token',
-	Contract = 'contract',
-	Transaction = 'transaction'
-}

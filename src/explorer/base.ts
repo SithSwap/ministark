@@ -1,10 +1,8 @@
-import type { Type } from '$src/address.js';
-
 type Bases = Partial<Record<Enumerate<Network.ChainID>, string>>;
-type Routes = Partial<Record<Enumerate<Type>, string>>;
+type Routes = Partial<Record<Enumerate<Address.Type>, string>>;
 
 export interface Explorer {
-	(chain: Enumerate<Network.ChainID>, type: Enumerate<Type>, address: HexString): Maybe<string>;
+	(chain: Enumerate<Network.ChainID>, type: Enumerate<Address.Type>, address: HexString): Maybe<string>;
 }
 
 export function explorer(bases: Bases, routes: Routes): Explorer {
