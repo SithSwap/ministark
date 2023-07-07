@@ -15,9 +15,7 @@ const Mask250 = 2n ** 250n - 1n;
  * @param value - string you want to get the starknetKeccak hash from
  * @returns starknet keccak hash as bigint
  */
-
-export function keccak(value: string | Uint8Array) {
-	if (typeof value === 'string') value = ENCODER.encode(value);
+export function keccak(value: Uint8Array) {
 	return toBigInt(keccak_256(value)) & Mask250;
 }
 
@@ -29,7 +27,7 @@ export function keccak(value: string | Uint8Array) {
  * @returns hex selector of given abi function name
  */
 export function selectorFor(name: string): HexString {
-	return `0x${keccak(name).toString(16)}`;
+	return `0x${keccak(ENCODER.encode(name)).toString(16)}`;
 }
 
 const PREFIX = toShortString('STARKNET_CONTRACT_ADDRESS').toString();

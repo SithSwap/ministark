@@ -1,5 +1,4 @@
-import type { Network } from './network.js';
-import { ChainID } from './network.js';
+import { Info } from './network.js';
 import { TimeoutController } from './utilities/promise.js';
 
 export const enum Status {
@@ -9,8 +8,8 @@ export const enum Status {
 	Unknown = 'unknown'
 }
 
-async function checkly({ chain }: Network): Promise<Enumerate<Status>> {
-	if (chain !== ChainID.Goerli) return Status.Unknown;
+async function checkly({ chain }: Info): Promise<Enumerate<Status>> {
+	if (chain !== Network.ChainID.Goerli) return Status.Unknown;
 
 	try {
 		const controller = new TimeoutController(8000);
@@ -29,7 +28,7 @@ const enum Gateway {
 	Feeder = 'feeder_gateway'
 }
 
-async function gateway(name: Enumerate<Gateway>, { base }: Network): Promise<Enumerate<Status>> {
+async function gateway(name: Enumerate<Gateway>, { base }: Info): Promise<Enumerate<Status>> {
 	try {
 		const url = new URL(`${name}/is_alive`, base);
 		const controller = new TimeoutController(5000);
@@ -43,9 +42,9 @@ async function gateway(name: Enumerate<Gateway>, { base }: Network): Promise<Enu
 	}
 }
 
-type Checker = (network: Network) => Promise<Enumerate<Status>>;
+type Checker = (network: Info) => Promise<Enumerate<Status>>;
 
-async function check(checkers: Checker[], network: Network): Promise<Enumerate<Status>> {
+async function check(checkers: Checker[], network: Info): Promise<Enumerate<Status>> {
 	const statuses = await Promise.all(checkers.map(checker => checker(network)));
 
 	let status: Status = Status.Unknown;

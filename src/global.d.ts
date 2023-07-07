@@ -10,6 +10,9 @@ type Enumerate<E extends string | number> = E extends string
 	: `${E}` extends `${infer T extends number}`
 	? T
 	: never;
+
+type ToRecord<T> = { [K in keyof T]: T[K] };
+
 type TypedArray =
 	| Int8Array
 	| Uint8Array

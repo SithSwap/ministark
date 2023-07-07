@@ -1,12 +1,11 @@
 import { Type } from '$src/address.js';
-import { ChainID } from '$src/network.js';
 
 import { explorer } from './base.js';
 
 export default explorer(
 	{
-		[ChainID.Mainnet]: 'https://starkscan.co/',
-		[ChainID.Goerli]: 'https://testnet.starkscan.co/'
+		[Network.ChainID.Mainnet]: 'https://starkscan.co/',
+		[Network.ChainID.Goerli]: 'https://testnet.starkscan.co/',
 	},
 	{
 		[Type.Block]: 'block',
