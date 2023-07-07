@@ -1,19 +1,15 @@
-import { TimeoutController } from './utilities/promise.js';
+import { TimeoutController } from '$src/utilities/promise.js';
 import { ChainID, type Info as NetworkInfo } from './network.js';
 
-const enum Status {
-	Ok = 'ok',
-	Degraded = 'degraded',
-	Error = 'error',
-	Unknown = 'unknown'
-}
+export const Status = Object.freeze({
+	Ok: 'ok',
+	Degraded: 'degraded',
+	Error: 'error',
+	Unknown: 'unknown'
+});
+export type Status = ValuesOf<typeof Status>;
 
-const enum Gateway {
-	Default = 'gateway',
-	Feeder = 'feeder_gateway'
-}
-
-async function checkly({ chain }: NetworkInfo): Promise<Enumerate<Status>> {
+async function checkly({ chain }: NetworkInfo): Promise<Status> {
 	if (chain !== ChainID.Goerli) return Status.Unknown;
 
 	try {
@@ -28,10 +24,15 @@ async function checkly({ chain }: NetworkInfo): Promise<Enumerate<Status>> {
 	}
 }
 
+const enum Gateway {
+	Default = 'gateway',
+	Feeder = 'feeder_gateway'
+}
+
 async function gateway(
 	name: Enumerate<Gateway>,
 	{ base }: NetworkInfo
-): Promise<Enumerate<Status>> {
+): Promise<Status> {
 	try {
 		const url = new URL(`${name}/is_alive`, base);
 		const controller = new TimeoutController(5000);
@@ -45,9 +46,9 @@ async function gateway(
 	}
 }
 
-type Checker = (network: NetworkInfo) => Promise<Enumerate<Status>>;
+type Checker = (network: NetworkInfo) => Promise<Status>;
 
-async function check(checkers: Checker[], network: NetworkInfo): Promise<Enumerate<Status>> {
+async function check(checkers: Checker[], network: NetworkInfo): Promise<Status> {
 	const statuses = await Promise.all(checkers.map(checker => checker(network)));
 
 	let status: Status = Status.Unknown;

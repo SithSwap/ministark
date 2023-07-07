@@ -46,6 +46,16 @@
 			"import": "./dist/esm/call.js",
 			"default": "./dist/call.js"
 		},
+		"./transaction": {
+			"types": "./dist/transaction.d.ts",
+			"import": "./dist/esm/transaction.js",
+			"default": "./dist/transaction.js"
+		},
+		"./network": {
+			"types": "./dist/network/index.d.ts",
+			"import": "./dist/esm/network/index.js",
+			"default": "./dist/network/index.js"
+		},
 		"./explorer": {
 			"types": "./dist/explorer/index.d.ts",
 			"import": "./dist/esm/explorer/index.js",

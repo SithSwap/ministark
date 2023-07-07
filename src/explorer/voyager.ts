@@ -1,5 +1,5 @@
 import { Type as AddressType } from '$src/address.js';
-import { ChainID } from '$src/network.js';
+import { ChainID } from '$src/network/index.js';
 import { explorer } from './base.js';
 
 export default explorer(

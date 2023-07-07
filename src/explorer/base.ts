@@ -1,4 +1,4 @@
-import { ChainID } from '$src/network.js';
+import { ChainID } from '$src/network/index.js';
 import { Type as AddressType } from '$src/address.js';
 
 type Bases = Partial<Record<ChainID, string>>;

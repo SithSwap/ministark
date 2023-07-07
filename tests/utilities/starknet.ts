@@ -1,5 +1,5 @@
 import { Provider, constants } from 'starknet';
-import { ChainID, Networks } from '$src/network.js';
+import { ChainID, Networks } from '$src/network/index.js';
 import { call, multicall } from '$src/call.js';
 
 const CONTRACTS = {

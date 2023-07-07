@@ -1,37 +1,33 @@
 import type { Provider } from 'starknet';
 import { sleep } from './utilities/promise.js';
 
-const enum HashPrefix {
-	// toShortString('declare')
-	Declare = '0x6465636c617265',
+export const HashPrefix = Object.freeze({
+	Declare: '0x6465636c617265', // toShortString('declare')
+	Deploy: '0x6465706c6f79', // toShortString('deploy')
+	Invoke: '0x696e766f6b65', // toShortString('invoke')
+	L1Handler: '0x6c315f68616e646c6572' // toShortString('l1_handler')
+});
+export type HashPrefix = ValuesOf<typeof HashPrefix>;
 
-	// toShortString('deploy')
-	Deploy = '0x6465706c6f79',
+export const Status = Object.freeze({
+	NotReceived: 'NOT_RECEIVED',
+	Received: 'RECEIVED',
+	Pending: 'PENDING',
+	AcceptedOnL2: 'ACCEPTED_ON_L2',
+	AcceptedOnL1: 'ACCEPTED_ON_L1',
+	Rejected: 'REJECTED'
+});
+export type Status = ValuesOf<typeof Status>;
 
-	// toShortString('invoke')
-	Invoke = '0x696e766f6b65',
-
-	// toShortString('l1_handler')
-	L1Handler = '0x6c315f68616e646c6572'
-}
-
-const enum Status {
-	NotReceived = 'NOT_RECEIVED',
-	Received = 'RECEIVED',
-	Pending = 'PENDING',
-	AcceptedOnL2 = 'ACCEPTED_ON_L2',
-	AcceptedOnL1 = 'ACCEPTED_ON_L1',
-	Rejected = 'REJECTED'
-}
-
-const enum Type {
-	Declare = 'DECLARE',
-	Deploy = 'DEPLOY',
-	Invoke = 'INVOKE',
-	L1Handler = 'L1_HANDLER',
-	DeployAccount = 'DEPLOY_ACCOUNT',
-	InvokeFunction = 'INVOKE_FUNCTION'
-}
+export const Type = Object.freeze({
+	Declare: 'DECLARE',
+	Deploy: 'DEPLOY',
+	Invoke: 'INVOKE',
+	L1Handler: 'L1_HANDLER',
+	DeployAccount: 'DEPLOY_ACCOUNT',
+	InvokeFunction: 'INVOKE_FUNCTION'
+} as const);
+export type Type = ValuesOf<typeof Type>;
 
 export function get(provider: Provider, hash: HexString) {
 	return provider.getTransaction(hash);
@@ -40,8 +36,8 @@ export function get(provider: Provider, hash: HexString) {
 type WaitOptions = {
 	interval?: number;
 	retries?: number;
-	pass?: Enumerate<Status>[];
-	reject?: Enumerate<Status>[];
+	pass?: Status[];
+	reject?: Status[];
 };
 
 export class Timeout extends Error {
@@ -53,7 +49,7 @@ export class Timeout extends Error {
 
 export class Rejected extends Error {
 	status: string;
-	constructor(status: Enumerate<Status>) {
+	constructor(status: Status) {
 		super(`transaction failed with status ${status}`);
 		this.name = 'Rejected';
 		this.status = status;

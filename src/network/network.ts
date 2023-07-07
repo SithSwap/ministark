@@ -2,7 +2,7 @@ export const ChainID = Object.freeze({
 	Mainnet: '0x534e5f4d41494e', // toShortString('SN_MAIN')
 	Goerli: '0x534e5f474f45524c49', // toShortString('SN_GOERLI')
 	Goerli2: '0x534e5f474f45524c4932' // toShortString('SN_GOERLI2')
-} as const);
+});
 
 export type ChainID = ValuesOf<typeof ChainID>;
 
