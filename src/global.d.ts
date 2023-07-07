@@ -26,5 +26,7 @@ type TypedArray =
 	| BigInt64Array
 	| BigUint64Array;
 
+type ValuesOf<T> = T[keyof T];
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Bound<F> = F extends (x: any, ...args: infer P) => infer R ? (...args: P) => R : F;

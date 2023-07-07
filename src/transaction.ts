@@ -1,6 +1,38 @@
 import type { Provider } from 'starknet';
 import { sleep } from './utilities/promise.js';
 
+const enum HashPrefix {
+	// toShortString('declare')
+	Declare = '0x6465636c617265',
+
+	// toShortString('deploy')
+	Deploy = '0x6465706c6f79',
+
+	// toShortString('invoke')
+	Invoke = '0x696e766f6b65',
+
+	// toShortString('l1_handler')
+	L1Handler = '0x6c315f68616e646c6572'
+}
+
+const enum Status {
+	NotReceived = 'NOT_RECEIVED',
+	Received = 'RECEIVED',
+	Pending = 'PENDING',
+	AcceptedOnL2 = 'ACCEPTED_ON_L2',
+	AcceptedOnL1 = 'ACCEPTED_ON_L1',
+	Rejected = 'REJECTED'
+}
+
+const enum Type {
+	Declare = 'DECLARE',
+	Deploy = 'DEPLOY',
+	Invoke = 'INVOKE',
+	L1Handler = 'L1_HANDLER',
+	DeployAccount = 'DEPLOY_ACCOUNT',
+	InvokeFunction = 'INVOKE_FUNCTION'
+}
+
 export function get(provider: Provider, hash: HexString) {
 	return provider.getTransaction(hash);
 }
@@ -8,8 +40,8 @@ export function get(provider: Provider, hash: HexString) {
 type WaitOptions = {
 	interval?: number;
 	retries?: number;
-	pass?: Enumerate<Transaction.Status>[];
-	reject?: Enumerate<Transaction.Status>[];
+	pass?: Enumerate<Status>[];
+	reject?: Enumerate<Status>[];
 };
 
 export class Timeout extends Error {
@@ -21,7 +53,7 @@ export class Timeout extends Error {
 
 export class Rejected extends Error {
 	status: string;
-	constructor(status: Enumerate<Transaction.Status>) {
+	constructor(status: Enumerate<Status>) {
 		super(`transaction failed with status ${status}`);
 		this.name = 'Rejected';
 		this.status = status;
@@ -32,7 +64,7 @@ export async function wait(provider: Provider, hash: HexString, options?: WaitOp
 	const { interval, retries, pass, reject } = {
 		interval: 8000,
 		retries: 10,
-		pass: [Transaction.Status.Pending, Transaction.Status.AcceptedOnL2, Transaction.Status.AcceptedOnL1],
+		pass: [Status.Pending, Status.AcceptedOnL2, Status.AcceptedOnL1],
 		reject: [],
 		...options
 	};

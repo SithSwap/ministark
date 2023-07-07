@@ -11,7 +11,6 @@ describe('transaction', () => {
 	});
 
 	it('should wait for a transaction', async () => {
-		console.log(Network.ChainID.Mainnet)
 		const runs = 3;
 		const provider = new Provider({ sequencer: { network: constants.NetworkName.SN_GOERLI } });
 		const mock = vi.spyOn(provider, 'getTransactionReceipt').mockImplementation(async hash => ({

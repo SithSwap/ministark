@@ -31,3 +31,14 @@ export function checksum(address: BigIntish) {
 }
 
 export const ZeroAddress = validate('0x0');
+
+export const Type = Object.freeze({
+	Block: 'block',
+	Class: 'class',
+	Event: 'event',
+	Token: 'token',
+	Contract: 'contract',
+	Transaction: 'transaction'
+} as const);
+
+export type Type = ValuesOf<typeof Type>;

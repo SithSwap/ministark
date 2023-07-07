@@ -1,15 +1,15 @@
 import { Provider, constants } from 'starknet';
-import { Networks } from '$src/network.js';
+import { ChainID, Networks } from '$src/network.js';
 import { call, multicall } from '$src/call.js';
 
 const CONTRACTS = {
-	[Network.ChainID.Mainnet]: {
+	[ChainID.Mainnet]: {
 		Multicall: '0x05754af3760f3356da99aea5c3ec39ccac7783d925a19666ebbeca58ff0087f4'
 	},
-	[Network.ChainID.Goerli]: {
+	[ChainID.Goerli]: {
 		Multicall: '0x05754af3760f3356da99aea5c3ec39ccac7783d925a19666ebbeca58ff0087f4'
 	}
-} as Partial<Record<Network.ChainID, Record<string, HexString>>>;
+} as Partial<Record<ValuesOf<typeof ChainID>, Record<string, HexString>>>;
 
 export const TOKENS = {
 	DAI: '0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396ec9' as HexString,
@@ -29,12 +29,12 @@ export const ACCOUNTS = [
 	}
 ];
 
-export function reader(chain: Network.ChainID) {
+export function reader(chain: ValuesOf<typeof ChainID>) {
 	const constracts = CONTRACTS[chain];
 
 	if (!constracts) throw new Error('Unsupported network');
 
-	console.log(Networks)
+	console.log(Networks);
 	const network = Networks[chain].name;
 
 	if (!network) throw new Error('Unsupported network');
