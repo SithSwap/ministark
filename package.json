@@ -14,7 +14,7 @@
 		"l2"
 	],
 	"scripts": {
-		"build": "npm run build:clean && tsc -p tsconfig.build.json && tsc -p tsconfig.esm.json",
+		"build": "npm run build:clean && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.json && tsc -p tsconfig.esm.json && tsc-alias -p tsconfig.esm.json",
 		"build:clean": "rimraf dist",
 		"test": "vitest",
 		"test:ui": "vitest --ui",
@@ -80,6 +80,7 @@
 		"prettier": "^3.0.0",
 		"rimraf": "^5.0.1",
 		"starknet": "^5.14.1",
+		"tsc-alias": "^1.8.7",
 		"tslib": "^2.6.0",
 		"typescript": "^5.1.6",
 		"vite": "^4.4.2",
