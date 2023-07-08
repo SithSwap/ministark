@@ -18,6 +18,8 @@ export abstract class Wallet {
 
 	static label: string;
 
+	static website: string;
+
 	static downloads: {
 		chrome?: `https://chrome.google.com/webstore/detail/${string}`;
 		firefox?: `https://addons.mozilla.org/en-US/firefox/addon/${string}`;

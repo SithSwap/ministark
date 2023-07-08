@@ -22,13 +22,17 @@ export default class Braavos extends Wallet {
 		return 'Braavos' as const;
 	}
 
+	static get website() {
+		return 'https://braavos.app/' as const;
+	}
+
 	static get downloads() {
 		return {
 			chrome: 'https://chrome.google.com/webstore/detail/braavos-wallet/jnlgamecbpmbajjfhmmmlhejkemejdma',
 			firefox: 'https://addons.mozilla.org/en-US/firefox/addon/braavos-wallet'
 		} as const;
 	}
-	
+
 	get isInstalled() {
 		return !!this.#starknet;
 	}

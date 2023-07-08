@@ -22,6 +22,10 @@ export default class ArgentX extends Wallet {
 		return 'Argent X' as const;
 	}
 
+	static get website() {
+		return 'https://www.argent.xyz/argent-x/' as const;
+	}
+
 	static get downloads() {
 		return {
 			chrome: 'https://chrome.google.com/webstore/detail/argent-x-starknet-wallet/dlcobpjiigpikoobohmabehhmhfoodbb',
