@@ -1,3 +1,5 @@
+import type { BigIntish, HexString, ValuesOf } from '$src/types.js';
+
 import { fromHexString } from './utilities/buffer.js';
 import { keccak } from './hash.js';
 
@@ -39,6 +41,5 @@ export const Type = Object.freeze({
 	Token: 'token',
 	Contract: 'contract',
 	Transaction: 'transaction'
-} as const);
-
+});
 export type Type = ValuesOf<typeof Type>;

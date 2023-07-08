@@ -1,3 +1,5 @@
+import type { Enumerate, ValuesOf } from '$src/types.js';
+
 import { TimeoutController } from '$src/utilities/promise.js';
 import { ChainID, type Info as NetworkInfo } from './network.js';
 

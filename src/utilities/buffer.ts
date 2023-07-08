@@ -1,3 +1,5 @@
+import type { BigIntish, HexString, TypedArray } from "$src/types.js";
+
 const LUT = Array.from({ length: 256 }, (_, i) => i.toString(16).padStart(2, '0'));
 
 export function fromHexString(input: string) {

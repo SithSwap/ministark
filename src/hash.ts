@@ -1,3 +1,5 @@
+import type { BigIntish, HexString } from '$src/types.js';
+
 import { keccak_256 } from '@noble/hashes/sha3';
 import { toBigInt } from './utilities/buffer.js';
 import { toShortString } from './codec.js';

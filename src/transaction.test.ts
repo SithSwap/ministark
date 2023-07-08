@@ -1,3 +1,5 @@
+import type { HexString } from '$src/types.js';
+
 import { Provider, constants } from 'starknet';
 import { advance } from '$tests/utilities/time.js';
 import { wait, Rejected, Timeout } from './transaction.js';

@@ -1,4 +1,5 @@
 import type { Call as StarknetCall, Account, Provider } from 'starknet';
+import type { Arrayable, BigIntish, HexString, Not } from '$src/types.js';
 
 import { toFelt } from './codec.js';
 import { selectorFor } from './hash.js';

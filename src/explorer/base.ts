@@ -1,10 +1,12 @@
+import type { HexString } from '$src/types.js';
+
 import { ChainID } from '$src/network/index.js';
 import { Type as AddressType } from '$src/address.js';
 
 type Bases = Partial<Record<ChainID, string>>;
 type Routes = Partial<Record<AddressType, string>>;
 
-export type Explorer = (chain: ChainID, type: AddressType, address: HexString) => Maybe<string>;
+export type Explorer = (chain: ChainID, type: AddressType, address: HexString) => string | undefined;
 
 export function explorer(bases: Bases, routes: Routes): Explorer {
 	return (chain, type, address) => {

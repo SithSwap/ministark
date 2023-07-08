@@ -1,3 +1,5 @@
+import type { HexString } from '$src/types.js';
+
 import { ChainID } from '$src/network/index.js';
 
 export default {

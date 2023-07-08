@@ -1,4 +1,6 @@
 import type { Provider } from 'starknet';
+import type { HexString, ValuesOf } from '$src/types.js';
+
 import { sleep } from './utilities/promise.js';
 
 export const HashPrefix = Object.freeze({

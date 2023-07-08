@@ -1,3 +1,5 @@
+import type { BigIntish } from '$src/types.js';
+
 import { isASCII } from './utilities/string.js';
 import { toBigInt, fromBigInt } from './utilities/buffer.js';
 
