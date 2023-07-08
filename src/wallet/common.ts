@@ -14,11 +14,11 @@ type Subscriber<T> = (value: T) => void;
 export abstract class Wallet {
 	#subscribers = new Set<Subscriber<Wallet>>();
 
-	abstract id: string;
+	static id: string;
 
-	abstract name: string;
+	static label: string;
 
-	abstract downloads: {
+	static downloads: {
 		chrome?: `https://chrome.google.com/webstore/detail/${string}`;
 		firefox?: `https://addons.mozilla.org/en-US/firefox/addon/${string}`;
 	};

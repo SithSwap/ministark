@@ -14,15 +14,15 @@ export default class ArgentX extends Wallet {
 	#connection?: Connection;
 	#starknet = globalThis['starknet_argentX'];
 
-	get id() {
+	static get id() {
 		return 'argentX' as const;
 	}
 
-	get name() {
+	static get label() {
 		return 'Argent X' as const;
 	}
 
-	get downloads() {
+	static get downloads() {
 		return {
 			chrome: 'https://chrome.google.com/webstore/detail/argent-x-starknet-wallet/dlcobpjiigpikoobohmabehhmhfoodbb',
 			firefox: 'https://addons.mozilla.org/en-US/firefox/addon/argent-x'

@@ -14,15 +14,15 @@ export default class Braavos extends Wallet {
 	#connection?: Connection;
 	#starknet = globalThis['starknet_braavos'];
 
-	get id() {
+	static get id() {
 		return 'braavos' as const;
 	}
 
-	get name() {
+	static get label() {
 		return 'Braavos' as const;
 	}
 
-	get downloads() {
+	static get downloads() {
 		return {
 			chrome: 'https://chrome.google.com/webstore/detail/braavos-wallet/jnlgamecbpmbajjfhmmmlhejkemejdma',
 			firefox: 'https://addons.mozilla.org/en-US/firefox/addon/braavos-wallet'
