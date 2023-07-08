@@ -31,10 +31,7 @@ const enum Gateway {
 	Feeder = 'feeder_gateway'
 }
 
-async function gateway(
-	name: Enumerate<Gateway>,
-	{ base }: NetworkInfo
-): Promise<Status> {
+async function gateway(name: Enumerate<Gateway>, { base }: NetworkInfo): Promise<Status> {
 	try {
 		const url = new URL(`${name}/is_alive`, base);
 		const controller = new TimeoutController(5000);

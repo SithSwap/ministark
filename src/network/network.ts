@@ -1,4 +1,4 @@
-import type { Enumerate, ValuesOf } from "$src/types.js";
+import type { Enumerate, ValuesOf } from '$src/types.js';
 
 export const ChainID = Object.freeze({
 	Mainnet: '0x534e5f4d41494e', // toShortString('SN_MAIN')

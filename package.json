@@ -46,6 +46,11 @@
 			"import": "./dist/esm/call.js",
 			"default": "./dist/call.js"
 		},
+		"./wallet": {
+			"types": "./dist/wallet/index.d.ts",
+			"import": "./dist/esm/wallet/index.js",
+			"default": "./dist/wallet/index.js"
+		},
 		"./transaction": {
 			"types": "./dist/transaction.d.ts",
 			"import": "./dist/esm/transaction.js",
