@@ -10,8 +10,8 @@ declare global {
 	var starknet_argentX: Starknet | undefined;
 }
 
-export default class ArgentX extends Wallet {
-	#connection?: Connection;
+export default class ArgentX<Chain extends ChainID = ChainID> extends Wallet<Chain> {
+	#connection?: Connection<Chain>;
 	#starknet = globalThis['starknet_argentX'];
 
 	static get id() {
@@ -53,7 +53,7 @@ export default class ArgentX extends Wallet {
 			const chain = await this.#starknet.provider.getChainId();
 			this.#connection = {
 				address: this.#starknet.selectedAddress,
-				chain: chain as ChainID,
+				chain: chain as Chain,
 				provider: this.#starknet.provider,
 				account: this.#starknet.account
 			};

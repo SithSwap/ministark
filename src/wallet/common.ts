@@ -2,16 +2,16 @@ import type { Account, Provider } from 'starknet';
 import type { ChainID } from '$src/network/network.js';
 import type { HexString } from '$src/types.js';
 
-export type Connection = {
+export type Connection<Chain extends ChainID = ChainID> = {
 	address?: HexString;
-	chain?: ChainID;
+	chain?: Chain;
 	provider?: Provider;
 	account?: Account;
 };
 
 type Subscriber<T> = (value: T) => void;
 
-export abstract class Wallet {
+export abstract class Wallet<Chain extends ChainID = ChainID> {
 	#subscribers = new Set<Subscriber<Wallet>>();
 
 	static id: string;
@@ -25,7 +25,7 @@ export abstract class Wallet {
 		firefox?: `https://addons.mozilla.org/en-US/firefox/addon/${string}`;
 	};
 
-	abstract connection?: Connection;
+	abstract connection?: Connection<Chain>;
 	abstract isInstalled: boolean;
 
 	subscribe(subscriber: Subscriber<Wallet>) {
