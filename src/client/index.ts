@@ -5,18 +5,18 @@ import type { ChainID } from '$src/network/network.js';
 
 import { call, estimate, execute, multicall } from '$src/call.js';
 
-export type Lookup = {
-	chain: ChainID;
+export type Lookup<Chain extends ChainID = ChainID> = {
+	chain: Chain;
 	lookup: Bound<typeof lookup>;
 };
 
-export type Reader = Lookup & {
+export type Reader<Chain extends ChainID = ChainID> = Lookup<Chain> & {
 	provider: Provider;
 	call: Bound<typeof call>;
 	multicall: Bound<Bound<typeof multicall>>;
 };
 
-export type Writer = Reader & {
+export type Writer<Chain extends ChainID = ChainID> = Reader<Chain> & {
 	address: HexString;
 	account: Account;
 	estimate: Bound<typeof estimate>;
@@ -32,9 +32,9 @@ export function lookup<const D extends Deployment>(deployment: D, target: keyof 
 	return deployment[target];
 }
 
-export function reader<const D extends Deployment & { [Multicall]: HexString }>(
-	connection: Required<Pick<Connection, 'chain' | 'provider'>>,
-	deployment: D
+export function reader<Chain extends ChainID = ChainID>(
+	connection: Required<Pick<Connection<Chain>, 'chain' | 'provider'>>,
+	deployment: Deployment & { [Multicall]: HexString }
 ): Reader {
 	return {
 		chain: connection.chain,
@@ -45,9 +45,9 @@ export function reader<const D extends Deployment & { [Multicall]: HexString }>(
 	};
 }
 
-export function writer<const D extends Deployment & { [Multicall]: HexString }>(
-	connection: Required<Connection>,
-	deployment: D
+export function writer<Chain extends ChainID = ChainID>(
+	connection: Required<Connection<Chain>>,
+	deployment: Deployment & { [Multicall]: HexString }
 ): Writer {
 	return {
 		...reader(connection, deployment),
