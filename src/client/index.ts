@@ -28,7 +28,7 @@ type Deployment<K extends Keys = Keys> = { [k in K]: HexString };
 
 export const Multicall = Symbol('Multicall');
 
-function lookup<const D extends Deployment>(deployment: D, target: keyof D) {
+export function lookup<const D extends Deployment>(deployment: D, target: keyof D) {
 	return deployment[target];
 }
 
