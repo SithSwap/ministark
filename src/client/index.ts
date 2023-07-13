@@ -35,7 +35,7 @@ export function lookup<const D extends Deployment>(deployment: D, target: keyof 
 export function reader<Chain extends ChainID = ChainID>(
 	connection: Required<Pick<Connection<Chain>, 'chain' | 'provider'>>,
 	deployment: Deployment & { [Multicall]: HexString }
-): Reader {
+): Reader<Chain> {
 	return {
 		chain: connection.chain,
 		provider: connection.provider,
@@ -48,9 +48,9 @@ export function reader<Chain extends ChainID = ChainID>(
 export function writer<Chain extends ChainID = ChainID>(
 	connection: Required<Connection<Chain>>,
 	deployment: Deployment & { [Multicall]: HexString }
-): Writer {
+): Writer<Chain> {
 	return {
-		...reader(connection, deployment),
+		...reader<Chain>(connection, deployment),
 		address: connection.address,
 		account: connection.account,
 		estimate: estimate.bind(null, connection.account),
