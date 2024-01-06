@@ -23,7 +23,7 @@
 		"format": "prettier --write --plugin-search-dir=. .",
 		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
 		"clean": "bun ./scripts/clean.ts",
-		"prepublishOnly": "bun test && bun run build"
+		"prepublishOnly": "bun run test && bun run build"
 	},
 	"type": "module",
 	"files": [
