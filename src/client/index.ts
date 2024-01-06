@@ -1,4 +1,4 @@
-import type { Provider, Account } from 'starknet';
+import type { ProviderInterface, Account } from 'starknet';
 import type { Bound, HexString } from '$src/types.js';
 import type { Connection } from '$src/wallet/common.js';
 import type { ChainID } from '$src/network/network.js';
@@ -11,7 +11,7 @@ export type Lookup<Chain extends ChainID = ChainID> = {
 };
 
 export type Reader<Chain extends ChainID = ChainID> = Lookup<Chain> & {
-	provider: Provider;
+	provider: ProviderInterface;
 	call: Bound<typeof call>;
 	multicall: Bound<Bound<typeof multicall>>;
 };

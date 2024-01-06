@@ -1,4 +1,5 @@
 import { bench } from 'vitest';
+
 import { ec } from 'starknet';
 import { pedersen } from './hash.js';
 

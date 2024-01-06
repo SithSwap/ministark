@@ -8,8 +8,8 @@ export type Maybe<T> = T | undefined;
 export type Enumerate<E extends string | number> = E extends string
 	? `${E}`
 	: `${E}` extends `${infer T extends number}`
-	? T
-	: never;
+		? T
+		: never;
 
 export type ToRecord<T> = { [K in keyof T]: T[K] };
 

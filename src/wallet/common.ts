@@ -1,11 +1,11 @@
-import type { Account, Provider } from 'starknet';
+import type { Account, ProviderInterface } from 'starknet';
 import type { ChainID } from '$src/network/network.js';
 import type { HexString } from '$src/types.js';
 
 export type Connection<Chain extends ChainID = ChainID> = {
 	address?: HexString;
 	chain?: Chain;
-	provider?: Provider;
+	provider?: ProviderInterface;
 	account?: Account;
 };
 
@@ -27,6 +27,7 @@ export abstract class Wallet<Chain extends ChainID = ChainID> {
 
 	abstract connection?: Connection<Chain>;
 	abstract isInstalled: boolean;
+	abstract isConnected: boolean;
 
 	subscribe(subscriber: Subscriber<Wallet>) {
 		this.#subscribers.add(subscriber);

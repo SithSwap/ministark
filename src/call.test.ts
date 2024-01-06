@@ -33,4 +33,25 @@ describe.concurrent('Calls', () => {
 		const original = transaction.fromCallsToExecuteCalldataWithNonce(REMAPPED, 2);
 		expect(target).toStrictEqual(original);
 	});
+
+	it('Long call name', () => {
+		transaction.fromCallsToExecuteCalldata_cairo1([
+			{
+				contractAddress: TOKENS['DAI'],
+				entrypoint: 'swapExactTokensForTokensSupportingFeeOnTransferTokens',
+				calldata: [
+					'0x120d73fc42b180c',
+					'0x0',
+					'0x2d4ea7b71ada',
+					'0x0',
+					'0x1',
+					'0xda114221cb83fa859dbdb4c44beeaa0bb37c7537ad5ae66fe5e0efd20e6eb3',
+					'0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+					'0x0',
+					'0x67358bdf1ff1451a0f1234f6239a705bea1813c10f3c4cb9728d4d13f26657c',
+					'0x6501c04d'
+				]
+			}
+		]);
+	});
 });

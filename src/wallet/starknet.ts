@@ -1,4 +1,4 @@
-import type { Account, Provider } from 'starknet';
+import type { Account, ProviderInterface } from 'starknet';
 import { HexString } from '$src/types.js';
 
 export interface Asset {
@@ -26,7 +26,7 @@ export interface Starknet {
 
 	id: string;
 	version: string;
-	provider: Provider;
+	provider: ProviderInterface;
 	isConnected: boolean;
 	account: Account;
 	selectedAddress?: HexString;

@@ -1,4 +1,4 @@
-import type { Call as StarknetCall, Account, Provider } from 'starknet';
+import type { Call as StarknetCall, Account, ProviderInterface } from 'starknet';
 import type { Arrayable, BigIntish, HexString, Not } from '$src/types.js';
 
 import { toFelt } from './codec.js';
@@ -74,11 +74,16 @@ export function toExecuteCalldata(calls: Call[], nonce?: BigIntish) {
 	return execute;
 }
 
-export function call(provider: Provider, call: Call, block?: Block) {
+export function call(provider: ProviderInterface, call: Call, block?: Block) {
 	return provider.callContract(remap(call), block);
 }
 
-export function multicall(provider: Provider, contract: HexString, calls: Call[], block?: Block) {
+export function multicall(
+	provider: ProviderInterface,
+	contract: HexString,
+	calls: Call[],
+	block?: Block
+) {
 	return provider.callContract(
 		{
 			entrypoint: 'aggregate',

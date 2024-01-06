@@ -1,9 +1,37 @@
 import type { HexString } from '$src/types.js';
 
-import { Provider, constants } from 'starknet';
+import { RpcProvider, GetTransactionReceiptResponse, ProviderInterface } from 'starknet';
 import { advance } from '$tests/utilities/time.js';
-import { wait, Rejected, Timeout } from './transaction.js';
+import { RPCs } from '$tests/client.js';
+import { wait, Rejected, Timeout, Status } from './transaction.js';
+import { ChainID } from '$src/network/network.js';
 
+function generateReceipt(hash: HexString, status?: Status) {
+	return {
+		type: 'INVOKE',
+		transaction_hash: hash,
+		status: status,
+		finality_status: status,
+		actual_fee: '0',
+		execution_status: 'SUCCEEDED',
+		block_hash: '0x1234',
+		block_number: 1234,
+		messages_sent: [],
+		revert_reason: '',
+		events: [],
+		execution_resources: {
+			steps: '0x1',
+			memory_holes: '0x1',
+			range_check_builtin_applications: '0x1',
+			pedersen_builtin_applications: '0x1',
+			poseidon_builtin_applications: '0x1',
+			ec_op_builtin_applications: '0x1',
+			ecdsa_builtin_applications: '0x1',
+			bitwise_builtin_applications: '0x1',
+			keccak_builtin_applications: '0x1'
+		}
+	} as GetTransactionReceiptResponse;
+}
 describe('transaction', () => {
 	beforeEach(() => {
 		vi.useFakeTimers();
@@ -14,11 +42,16 @@ describe('transaction', () => {
 
 	it('should wait for a transaction', async () => {
 		const runs = 3;
-		const provider = new Provider({ sequencer: { network: constants.NetworkName.SN_GOERLI } });
-		const mock = vi.spyOn(provider, 'getTransactionReceipt').mockImplementation(async hash => ({
-			transaction_hash: hash as HexString,
-			status: mock.mock.calls.length >= runs ? 'ACCEPTED_ON_L2' : 'NOT_RECEIVED'
-		}));
+		const provider = new RpcProvider({ nodeUrl: RPCs[ChainID.Goerli] }) as ProviderInterface;
+		const mock = vi
+			.spyOn(provider, 'getTransactionReceipt')
+			.mockImplementation(async hash =>
+				generateReceipt(
+					hash as HexString,
+					mock.mock.calls.length >= runs ? 'ACCEPTED_ON_L2' : undefined
+				)
+			);
+
 		const promise = wait(provider, '0x1234');
 		advance(runs);
 		const receipt = await promise;
@@ -29,12 +62,16 @@ describe('transaction', () => {
 
 	it('should reject a transaction', async () => {
 		const runs = 3;
-		const provider = new Provider({ sequencer: { network: constants.NetworkName.SN_GOERLI } });
-		const mock = vi.spyOn(provider, 'getTransactionReceipt').mockImplementation(async hash => ({
-			transaction_hash: hash as HexString,
-			status: mock.mock.calls.length >= runs ? 'REJECTED' : 'NOT_RECEIVED'
-		}));
-
+		const provider = new RpcProvider({ nodeUrl: RPCs[ChainID.Goerli] }) as ProviderInterface;
+		const mock = vi
+			.spyOn(provider, 'getTransactionReceipt')
+			.mockImplementation(async hash =>
+				generateReceipt(
+					hash as HexString,
+					mock.mock.calls.length >= runs ? 'REJECTED' : 'NOT_RECEIVED'
+				)
+			);
+		provider.getTransactionReceipt('');
 		try {
 			const promise = wait(provider, '0x1234', { reject: ['REJECTED'] });
 			advance(runs);
@@ -48,11 +85,10 @@ describe('transaction', () => {
 
 	it('should timesout', async () => {
 		const runs = 5;
-		const provider = new Provider({ sequencer: { network: constants.NetworkName.SN_GOERLI } });
-		const mock = vi.spyOn(provider, 'getTransactionReceipt').mockImplementation(async hash => ({
-			transaction_hash: hash as HexString,
-			status: 'NOT_RECEIVED'
-		}));
+		const provider = new RpcProvider({ nodeUrl: RPCs[ChainID.Goerli] }) as ProviderInterface;
+		const mock = vi
+			.spyOn(provider, 'getTransactionReceipt')
+			.mockImplementation(async hash => generateReceipt(hash as HexString, undefined));
 
 		try {
 			const promise = wait(provider, '0x1234', { retries: runs });

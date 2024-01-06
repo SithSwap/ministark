@@ -1,4 +1,4 @@
-import { hash as starknetHash, ec } from 'starknet';
+import { hash as starknetHash, ec, selector as OGSelector } from 'starknet';
 import { TOKENS } from '$tests/utilities/starknet.js';
 import { contract, hash, selectorFor, pedersen } from './hash.js';
 
@@ -30,11 +30,20 @@ describe.concurrent('hashing', () => {
 	test.each([
 		['test', '0x22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658'],
 		['initialize', '0x79dc0da7c54b95f10aa182ad0a46400db63156920adb65eca2654c0945a463'],
-		['mint', '0x2f0b3c5710379609eb5495f1ecd348cb28167711b73609fe565a72734550354']
+		['mint', '0x2f0b3c5710379609eb5495f1ecd348cb28167711b73609fe565a72734550354'],
+		[
+			'swapExactTokensForTokensSupportingFeeOnTransferTokens',
+			'0x39d1cc435aba4b7727e32d1d8c6874f419df6432f3c1fd27d4e29d104abf'
+		],
+		[
+			'swapExactTokensForTokens',
+			'0x2c0f7bf2d6cf5304c29171bf493feb222fef84bdaf17805a6574b0c2e8bcc87'
+		]
 	])('gets the correct selector for "%s"', (name, hash) => {
 		const selector = getSelectorFromName(name);
 		expect(selector).toBe(hash);
 		expect(selectorFor(name)).toBe(selector);
+		expect(selectorFor(name)).toBe(OGSelector.getSelector(name));
 	});
 
 	it.each([

@@ -7,29 +7,29 @@ import { debounce } from '$src/utilities/function.js';
 
 declare global {
 	// eslint-disable-next-line no-var
-	var starknet_argentX: Starknet | undefined;
+	var starknet_okxwallet: Starknet | undefined;
 }
 
-export default class ArgentX<Chain extends ChainID = ChainID> extends Wallet<Chain> {
+export default class OKX<Chain extends ChainID = ChainID> extends Wallet<Chain> {
 	#connection?: Connection<Chain>;
-	#starknet = globalThis['starknet_argentX'];
+	#starknet = globalThis['starknet_okxwallet'];
 
 	static get id() {
-		return 'argentX' as const;
+		return 'okxwallet' as const;
 	}
 
 	static get label() {
-		return 'Argent X' as const;
+		return 'OKX Wallet' as const;
 	}
 
 	static get website() {
-		return 'https://www.argent.xyz/argent-x/' as const;
+		return 'https://www.okx.com/web3' as const;
 	}
 
 	static get downloads() {
 		return {
-			chrome: 'https://chrome.google.com/webstore/detail/argent-x-starknet-wallet/dlcobpjiigpikoobohmabehhmhfoodbb',
-			firefox: 'https://addons.mozilla.org/en-US/firefox/addon/argent-x'
+			chrome: 'https://chrome.google.com/webstore/detail/okx-wallet/mcohilncbfahbmgdjkbpemcciiolgcge',
+			firefox: 'https://addons.mozilla.org/en-US/firefox/addon/okxwallet'
 		} as const;
 	}
 
@@ -46,7 +46,7 @@ export default class ArgentX<Chain extends ChainID = ChainID> extends Wallet<Cha
 	}
 
 	async activate() {
-		if (!this.#starknet) throw new Error('ArgentX is not installed.');
+		if (!this.#starknet) throw new Error('OKX Wallet is not installed.');
 		if (await this.#starknet?.isPreauthorized()) this.connect();
 		this.#starknet.on('accountsChanged', this.update);
 	}

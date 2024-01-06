@@ -37,6 +37,10 @@ export default class Braavos<Chain extends ChainID = ChainID> extends Wallet<Cha
 		return !!this.#starknet;
 	}
 
+	get isConnected() {
+		return !!this.#starknet?.isConnected;
+	}
+
 	get connection() {
 		return this.#connection;
 	}
