@@ -14,7 +14,7 @@
 		"l2"
 	],
 	"scripts": {
-		"build": "npm run build:clean && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.json && tsc -p tsconfig.esm.json && tsc-alias -p tsconfig.esm.json",
+		"build": "bun run build:clean && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.json && tsc -p tsconfig.esm.json && tsc-alias -p tsconfig.esm.json",
 		"build:clean": "bun ./scripts/clean.ts --build",
 		"test": "vitest",
 		"test:ui": "vitest --ui",
@@ -23,7 +23,7 @@
 		"format": "prettier --write --plugin-search-dir=. .",
 		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
 		"clean": "bun ./scripts/clean.ts",
-		"prepublishOnly": "npm test && npm run build"
+		"prepublishOnly": "bun test && bun run build"
 	},
 	"type": "module",
 	"files": [
