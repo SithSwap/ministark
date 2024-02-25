@@ -1,22 +1,22 @@
 import type { ProviderInterface, Account } from 'starknet';
-import type { Bound, HexString } from '$src/types.js';
+import type { Arrayable, Bound, HexString } from '$src/types.js';
 import type { Connection } from '$src/wallet/common.js';
 import type { ChainID } from '$src/network/network.js';
 
 import { call, estimate, execute, multicall } from '$src/call.js';
 
-export type Lookup<Chain extends ChainID = ChainID> = {
-	chain: Chain;
-	lookup: Bound<typeof lookup>;
+export type Lookup<C extends ChainID = ChainID, D extends Deployment = Deployment> = {
+	chain: C;
+	lookup: D;
 };
 
-export type Reader<Chain extends ChainID = ChainID> = Lookup<Chain> & {
+export type Reader<C extends ChainID = ChainID, D extends Deployment = Deployment> = Lookup<C, D> & {
 	provider: ProviderInterface;
 	call: Bound<typeof call>;
 	multicall: Bound<Bound<typeof multicall>>;
 };
 
-export type Writer<Chain extends ChainID = ChainID> = Reader<Chain> & {
+export type Writer<C extends ChainID = ChainID, D extends Deployment = Deployment> = Reader<C, D> & {
 	address: HexString;
 	account: Account;
 	estimate: Bound<typeof estimate>;
@@ -24,33 +24,33 @@ export type Writer<Chain extends ChainID = ChainID> = Reader<Chain> & {
 };
 
 type Keys = string | number | symbol;
-type Deployment<K extends Keys = Keys> = { [k in K]: HexString };
+type Deployment<K extends Keys = Keys> = { [k in K]: Arrayable<HexString | Deployment> };
 
 export const Multicall = Symbol('Multicall');
 
-export function lookup<const D extends Deployment>(deployment: D, target: keyof D) {
-	return deployment[target];
-}
+// export function lookup<const D extends Deployment>(deployment: D, target: keyof D) {
+// 	return deployment[target];
+// }
 
-export function reader<Chain extends ChainID = ChainID>(
+export function reader<Chain extends ChainID = ChainID, const D extends Deployment = Deployment>(
 	connection: Required<Pick<Connection<Chain>, 'chain' | 'provider'>>,
-	deployment: Deployment & { [Multicall]: HexString }
+	deployment: D & { [Multicall]: HexString }
 ): Reader<Chain> {
 	return {
 		chain: connection.chain,
 		provider: connection.provider,
-		lookup: lookup.bind(null, deployment),
+		lookup: Object.freeze(deployment),
 		call: call.bind(null, connection.provider),
 		multicall: multicall.bind(null, connection.provider, deployment[Multicall])
 	};
 }
 
-export function writer<Chain extends ChainID = ChainID>(
-	connection: Required<Connection<Chain>>,
-	deployment: Deployment & { [Multicall]: HexString }
-): Writer<Chain> {
+export function writer<C extends ChainID = ChainID, const D extends Deployment = Deployment>(
+	connection: Required<Connection<C>>,
+	deployment: D & { [Multicall]: HexString }
+): Writer<C> {
 	return {
-		...reader<Chain>(connection, deployment),
+		...reader<C>(connection, deployment),
 		address: connection.address,
 		account: connection.account,
 		estimate: estimate.bind(null, connection.account),
