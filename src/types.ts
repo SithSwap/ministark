@@ -3,7 +3,7 @@ export type BigIntish = bigint | boolean | number | string;
 export type Not<T, U> = T extends U ? never : T;
 export type Entries<T> = [keyof T, T[keyof T]][];
 export type Values<T> = T[keyof T];
-export type Arrayable<T> = T | Array<T> | ReadonlyArray<T>;
+export type Arrayable<T> = T | Array<T>;
 export type Maybe<T> = T | undefined;
 export type Enumerate<E extends string | number> = E extends string
 	? `${E}`

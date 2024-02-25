@@ -24,7 +24,7 @@ export type Writer<C extends ChainID, D extends Deployment> = Reader<C, D> & {
 };
 
 type Keys = string | number | symbol;
-type Deployment<K extends Keys = Keys> = { [k in K]:  Arrayable<HexString | Deployment> };
+type Deployment<K extends Keys = Keys> = { [k in K]:  Arrayable<HexString | Deployment> | ReadonlyArray<Deployment> | ReadonlyArray<HexString> };
 
 export const Multicall = Symbol('Multicall');
 

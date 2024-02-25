@@ -21,7 +21,7 @@ describe('client', () => {
 			}]
 		} as const
 		const w = writer({ address, chain: ChainID.Goerli, provider, account }, deployment);
-        w.lookup.AMM[0]
-		expect(w.chain).toBe(ChainID.Goerli);
+        
+		expect(w.lookup.AMM[0].addLiquidity).toBe("0xabc");
 	});
 });
