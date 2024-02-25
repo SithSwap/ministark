@@ -12,17 +12,16 @@ describe('client', () => {
 			address.toLowerCase(),
 			ec.starkCurve.getStarkKey(key)
 		);
-		const w = writer(
-			{ address, chain: ChainID.Goerli, provider, account },
-			{
-				[Multicall]: '0x789' as HexString,
-				AMM: {
-					addLiquidity: '0xabc' as HexString,
-					removeLiquidity: '0xdef' as HexString
-				}
-			}
-		);
 
-        expect(w.chain).toBe(ChainID.Goerli);
+		const deployment = {
+			[Multicall]: '0x789' as HexString,
+			AMM: [{
+				addLiquidity: '0xabc' as HexString,
+				removeLiquidity: '0xdef' as HexString
+			}]
+		} as const
+		const w = writer({ address, chain: ChainID.Goerli, provider, account }, deployment);
+        w.lookup.AMM[0]
+		expect(w.chain).toBe(ChainID.Goerli);
 	});
 });

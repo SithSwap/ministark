@@ -24,13 +24,9 @@ export type Writer<C extends ChainID, D extends Deployment> = Reader<C, D> & {
 };
 
 type Keys = string | number | symbol;
-type Deployment<K extends Keys = Keys> = { [k in K]: Arrayable<HexString | Deployment> };
+type Deployment<K extends Keys = Keys> = { [k in K]:  Arrayable<HexString | Deployment> };
 
 export const Multicall = Symbol('Multicall');
-
-// export function lookup<const D extends Deployment>(deployment: D, target: keyof D) {
-// 	return deployment[target];
-// }
 
 export function reader<Chain extends ChainID = ChainID, const D extends Deployment = Deployment>(
 	connection: Required<Pick<Connection<Chain>, 'chain' | 'provider'>>,
