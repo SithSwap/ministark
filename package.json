@@ -1,6 +1,6 @@
 {
 	"name": "ministark",
-	"version": "0.4.4",
+	"version": "0.4.5",
 	"description": "Minimal library for interacting with the Starknet ecosystem",
 	"license": "MIT",
 	"author": "SithSwap (https://sithswap.com)",
