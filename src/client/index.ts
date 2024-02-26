@@ -5,18 +5,18 @@ import type { ChainID } from '$src/network/network.js';
 
 import { call, estimate, execute, multicall } from '$src/call.js';
 
-export type Lookup<C extends ChainID, D extends Deployment> = {
+export type Lookup<C extends ChainID = ChainID, D extends Deployment = Deployment> = {
 	chain: C;
-	lookup: D;
+	readonly lookup: D;
 };
 
-export type Reader<C extends ChainID, D extends Deployment> = Lookup<C, D> & {
+export type Reader<C extends ChainID = ChainID, D extends Deployment = Deployment> = Lookup<C, D> & {
 	provider: ProviderInterface;
 	call: Bound<typeof call>;
 	multicall: Bound<Bound<typeof multicall>>;
 };
 
-export type Writer<C extends ChainID, D extends Deployment> = Reader<C, D> & {
+export type Writer<C extends ChainID = ChainID, D extends Deployment = Deployment> = Reader<C, D> & {
 	address: HexString;
 	account: Account;
 	estimate: Bound<typeof estimate>;
