@@ -10,21 +10,32 @@ export type Lookup<C extends ChainID = ChainID, D extends Deployment = Deploymen
 	readonly lookup: D;
 };
 
-export type Reader<C extends ChainID = ChainID, D extends Deployment = Deployment> = Lookup<C, D> & {
+export type Reader<C extends ChainID = ChainID, D extends Deployment = Deployment> = Lookup<
+	C,
+	D
+> & {
 	provider: ProviderInterface;
 	call: Bound<typeof call>;
 	multicall: Bound<Bound<typeof multicall>>;
 };
 
-export type Writer<C extends ChainID = ChainID, D extends Deployment = Deployment> = Reader<C, D> & {
+export type Writer<C extends ChainID = ChainID, D extends Deployment = Deployment> = Reader<
+	C,
+	D
+> & {
 	address: HexString;
 	account: Account;
 	estimate: Bound<typeof estimate>;
 	execute: Bound<typeof execute>;
 };
 
-type Keys = string | number | symbol;
-type Deployment<K extends Keys = Keys> = { [k in K]:  Arrayable<HexString | Deployment> | ReadonlyArray<Deployment> | ReadonlyArray<HexString> };
+export type Keys = string | number | symbol;
+export type Deployment<K extends Keys = Keys> = {
+	[k in K]:
+		| Arrayable<HexString | Deployment>
+		| ReadonlyArray<Deployment>
+		| ReadonlyArray<HexString>;
+};
 
 export const Multicall = Symbol('Multicall');
 

@@ -15,13 +15,15 @@ describe('client', () => {
 
 		const deployment = {
 			[Multicall]: '0x789' as HexString,
-			AMM: [{
-				addLiquidity: '0xabc' as HexString,
-				removeLiquidity: '0xdef' as HexString
-			}]
-		} as const
+			AMM: [
+				{
+					addLiquidity: '0xabc' as HexString,
+					removeLiquidity: '0xdef' as HexString
+				}
+			]
+		} as const;
 		const w = writer({ address, chain: ChainID.Goerli, provider, account }, deployment);
-        
-		expect(w.lookup.AMM[0].addLiquidity).toBe("0xabc");
+
+		expect(w.lookup.AMM[0].addLiquidity).toBe('0xabc');
 	});
 });
