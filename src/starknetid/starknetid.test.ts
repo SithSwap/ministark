@@ -1,17 +1,15 @@
-import type { HexString } from '$src/types.js';
-
 import { Multicall } from '$src/client/index.js';
 import { ChainID } from '$src/network/index.js';
 
 import CONTRACTS from '$tests/constants/contracts.js';
 import { getReader } from '$tests/utilities/starknet.js';
-import { Contacts } from './index.js';
+import { Deployment as StarknetID } from './index.js';
 
 import { from, to } from './name.js';
 
 const Deployment = {
 	[ChainID.Goerli]: {
-		starknetid: { name: Contacts[ChainID.Goerli] as HexString },
+		...StarknetID[ChainID.Goerli],
 		[Multicall]: CONTRACTS[ChainID.Goerli][Multicall]
 	}
 };

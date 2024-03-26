@@ -13,4 +13,4 @@ export default {
 	[ChainID.Goerli]: {
 		[StarknetID]: { name: '0x3bab268e932d2cecd1946f100ae67ce3dff9fd234119ea2f6da57d16d29fce' }
 	}
-} as Partial<Record<ChainID, Deployment>>;
+} as const;
