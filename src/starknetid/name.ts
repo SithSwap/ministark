@@ -1,15 +1,17 @@
 import type { BigIntish, HexString } from '$src/types.js';
 import type { ChainID } from '$src/network/network.js';
 import type { Reader } from '$src/client/index.js';
+import type { Deployment } from './deployment.js';
 
 import { toFelt } from '$src/index.js';
 
 import { decode, encode } from './codec.js';
+import { StarknetID } from './deployment.js';
 
-type Client = Reader<ChainID, { starknetid: { name: HexString } }>;
+type Client = Reader<ChainID, Deployment>;
 
 export async function to(client: Client, addresses: BigIntish[]) {
-	const contract = client.lookup.starknetid.name;
+	const contract = client.lookup[StarknetID].name;
 	if (!contract) throw new Error('Starknet ID contract not found');
 
 	try {
@@ -47,7 +49,7 @@ export async function to(client: Client, addresses: BigIntish[]) {
 }
 
 export async function from(client: Client, domains: string[]) {
-	const contract = client.lookup.starknetid.name;
+	const contract = client.lookup[StarknetID].name;
 	if (!contract) throw new Error('Starknet ID contract not found');
 
 	try {
