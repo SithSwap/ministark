@@ -1,7 +1,7 @@
 import type { Enumerate, ValuesOf } from '$src/types.js';
+import type { Info as NetworkInfo } from './network.js';
 
 import { TimeoutController } from '$src/utilities/promise.js';
-import { ChainID, type Info as NetworkInfo } from './network.js';
 
 export const Status = Object.freeze({
 	Ok: 'ok',
@@ -11,21 +11,6 @@ export const Status = Object.freeze({
 });
 
 export type Status = ValuesOf<typeof Status>;
-
-async function checkly({ chain }: NetworkInfo): Promise<Status> {
-	if (chain !== ChainID.Goerli) return Status.Unknown;
-
-	try {
-		const controller = new TimeoutController(8000);
-		const url = 'https://starknet-status.vercel.app/api/simple-status';
-		const response = await fetch(url, { signal: controller.signal });
-		controller.clear();
-		const { status } = await response.json();
-		return response.status === 200 ? status : Status.Error;
-	} catch {
-		return Status.Error;
-	}
-}
 
 const enum Gateway {
 	Default = 'gateway',
@@ -61,7 +46,6 @@ async function check(checkers: Checker[], network: NetworkInfo): Promise<Status>
 }
 
 export const status = check.bind(null, [
-	checkly,
 	gateway.bind(null, Gateway.Feeder),
 	gateway.bind(null, Gateway.Default)
 ]);
