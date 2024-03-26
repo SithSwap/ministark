@@ -3,10 +3,16 @@ import type { Enumerate, ValuesOf } from '$src/types.js';
 export const ChainID = Object.freeze({
 	Mainnet: '0x534e5f4d41494e', // toShortString('SN_MAIN')
 	Goerli: '0x534e5f474f45524c49', // toShortString('SN_GOERLI')
-	Goerli2: '0x534e5f474f45524c4932' // toShortString('SN_GOERLI2')
+	Sepolia: '0x534e5f5345504f4c4941' // toShortString('SN_SEPOLIA')
 });
 
 export type ChainID = ValuesOf<typeof ChainID>;
+
+const enum Name {
+	Mainnet = 'SN_MAIN',
+	Goerli = 'SN_GOERLI',
+	Sepolia = 'SN_SEPOLIA'
+}
 
 export type Info = {
 	base: string;
@@ -15,31 +21,23 @@ export type Info = {
 	chain: ValuesOf<typeof ChainID>;
 };
 
-const enum Name {
-	Mainnet = 'SN_MAIN',
-	Goerli = 'SN_GOERLI',
-	Goerli2 = 'SN_GOERLI2'
-}
-
 export const Networks: Record<ChainID, Info> = {
-	[ChainID.Goerli]: {
-		name: Name.Mainnet,
-		chain: ChainID.Goerli,
-		label: 'Alpha Görli',
-		base: 'https://alpha4.starknet.io'
-	},
-
-	[ChainID.Goerli2]: {
-		name: Name.Goerli2,
-		chain: ChainID.Goerli2,
-		label: 'Alpha Görli 2',
-		base: 'https://alpha4-2.starknet.io'
-	},
-
 	[ChainID.Mainnet]: {
 		name: Name.Goerli,
 		chain: ChainID.Mainnet,
-		label: 'Alpha Mainnet',
+		label: 'Mainnet',
 		base: 'https://alpha-mainnet.starknet.io'
+	},
+	[ChainID.Goerli]: {
+		name: Name.Mainnet,
+		chain: ChainID.Goerli,
+		label: 'Görli',
+		base: 'https://alpha4.starknet.io'
+	},
+	[ChainID.Sepolia]: {
+		name: Name.Sepolia,
+		chain: ChainID.Sepolia,
+		label: 'Sepolia',
+		base: 'https://alpha-sepolia.starknet.io'
 	}
 };

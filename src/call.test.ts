@@ -1,5 +1,7 @@
 import { transaction } from 'starknet';
-import { TOKENS, ACCOUNTS } from '$tests/utilities/starknet.js';
+import ACCOUNTS from '$tests/constants/accounts.js';
+import TOKENS from '$tests/constants/tokens.js';
+
 import { remap, toMulticallArrays, toExecuteCalldata, type Call } from './call.js';
 
 const CALLS: Call[] = [

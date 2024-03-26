@@ -9,6 +9,7 @@ export const Status = Object.freeze({
 	Error: 'error',
 	Unknown: 'unknown'
 });
+
 export type Status = ValuesOf<typeof Status>;
 
 async function checkly({ chain }: NetworkInfo): Promise<Status> {

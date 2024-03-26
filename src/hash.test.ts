@@ -1,5 +1,5 @@
 import { hash as starknetHash, ec, selector as OGSelector } from 'starknet';
-import { TOKENS } from '$tests/utilities/starknet.js';
+import TOKENS from '$tests/constants/tokens.js';
 import { contract, hash, selectorFor, pedersen } from './hash.js';
 
 const { calculateContractAddressFromHash, computeHashOnElements, getSelectorFromName } =

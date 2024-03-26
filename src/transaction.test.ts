@@ -2,7 +2,7 @@ import type { HexString } from '$src/types.js';
 
 import { RpcProvider, GetTransactionReceiptResponse, ProviderInterface } from 'starknet';
 import { advance } from '$tests/utilities/time.js';
-import { RPCs } from '$tests/client.js';
+import RPCs from '$tests/constants/rpc.js';
 import { wait, Rejected, Timeout, Status } from './transaction.js';
 import { ChainID } from '$src/network/network.js';
 

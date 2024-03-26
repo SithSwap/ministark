@@ -32,7 +32,7 @@ export function checksum(address: BigIntish) {
 	return `0x${chars.join('')}`;
 }
 
-export const ZeroAddress = validate('0x0');
+export const ZeroAddress = normalize('0x0');
 
 export const Type = Object.freeze({
 	Block: 'block',
