@@ -23,7 +23,7 @@ export type Info = {
 
 export const Networks: Record<ChainID, Info> = {
 	[ChainID.Mainnet]: {
-		name: Name.Goerli,
+		name: Name.Mainnet,
 		chain: ChainID.Mainnet,
 		label: 'Mainnet',
 		base: 'https://alpha-mainnet.starknet.io'
@@ -31,7 +31,7 @@ export const Networks: Record<ChainID, Info> = {
 	[ChainID.Goerli]: {
 		name: Name.Mainnet,
 		chain: ChainID.Goerli,
-		label: 'Görli',
+		label: 'Goerli',
 		base: 'https://alpha4.starknet.io'
 	},
 	[ChainID.Sepolia]: {
